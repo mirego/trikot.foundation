@@ -18,5 +18,6 @@ expect class Date {
     companion object DateFactory {
         val now: Date
         fun fromISO8601(isoDate: String): Date
+        fun fromEpoch(epoch: Long): Date
     }
 }
