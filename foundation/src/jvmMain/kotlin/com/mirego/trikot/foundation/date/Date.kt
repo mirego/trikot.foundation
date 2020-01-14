@@ -42,6 +42,6 @@ actual class Date(val instant: Instant) {
 
         actual fun fromISO8601(isoDate: String): Date = Date(dateTimeFormatter.parse(isoDate) { from(it) }.toInstant())
 
-        actual fun fromEpoch(epoch: Long): Date = Date(Instant.ofEpochMilli(epoch))
+        actual fun fromEpochMillis(epoch: Long): Date = Date(Instant.ofEpochMilli(epoch))
     }
 }

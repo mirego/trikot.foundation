@@ -38,7 +38,7 @@ actual class Date(val date: kotlin.js.Date) {
             )
         }
 
-        actual fun fromEpoch(epoch: Long): Date {
+        actual fun fromEpochMillis(epoch: Long): Date {
             return Date(kotlin.js.Date(epoch))
         }
     }

@@ -35,7 +35,7 @@ actual class Date(val nsDate: NSDate) {
             )
         }
 
-        actual fun fromEpoch(epoch: Long): Date {
+        actual fun fromEpochMillis(epoch: Long): Date {
             return Date(NSDate(timeIntervalSinceReferenceDate = (epoch.toDouble() / 1000.0) + epochReferenceDateDelta))
         }
     }
