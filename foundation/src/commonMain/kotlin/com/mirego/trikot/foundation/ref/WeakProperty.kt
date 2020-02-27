@@ -19,16 +19,16 @@ fun <T : Any> weakAtomicReference() =
  * Weak atomic reference to a variable of type [T].
  */
 class WeakProperty<T : Any> : ReadWriteProperty<Any?, T?> {
-    private val internalNavigationDelegateRef = AtomicReference<WeakReference<T>?>(null)
-    private val delegate: T? get() = internalNavigationDelegateRef.value?.get()
+    private val internalReference = AtomicReference<WeakReference<T>?>(null)
+    private val delegate: T? get() = internalReference.value?.get()
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T? {
         return delegate
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
-        internalNavigationDelegateRef.setOrThrow(
-            internalNavigationDelegateRef.value,
+        internalReference.setOrThrow(
+            internalReference.value,
             value?.let { WeakReference(it) }
         )
     }
