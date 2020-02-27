@@ -6,7 +6,7 @@ import kotlin.reflect.KProperty
 
 /**
  * Creates weak atomic reference property delegate.
- * It can only be used in initialize of read-only property, like this:
+ * It can only be used in initialize of read-write optional property, like this:
  *
  * ```
  * val weakType : Type? by weakReference()
