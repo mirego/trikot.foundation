@@ -15,7 +15,6 @@ import kotlin.reflect.KProperty
 fun <T : Any> weakAtomicReference() =
     WeakProperty<T>()
 
-
 /**
  * Weak atomic reference to a variable of type [T].
  */
