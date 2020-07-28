@@ -1,31 +1,26 @@
 package com.mirego.trikot.foundation.concurrent.dispatchQueue
 
-import platform.Foundation.NSOperation
-import platform.Foundation.NSOperationQueue
-import kotlin.native.concurrent.freeze
+import com.mirego.trikot.foundation.concurrent.freeze
+import kotlin.native.concurrent.AtomicInt
+import platform.darwin.dispatch_async
+import platform.darwin.dispatch_get_global_queue
+import platform.darwin.DISPATCH_QUEUE_PRIORITY_HIGH
 
 open class iOSDispatchQueue(private val maxConcurrentOperation: Long = 4) : DispatchQueue {
+    private val count = AtomicInt(0)
 
-    override fun isSerial() = maxConcurrentOperation == 1L
-
-    val operationQueue = NSOperationQueue()
-
-    init {
-        operationQueue.maxConcurrentOperationCount = maxConcurrentOperation
-    }
+    override fun isSerial() = true
 
     override fun dispatch(block: DispatchBlock) {
-        block.freeze()
-        operationQueue.addOperation(object : NSOperation() {
-            override fun isAsynchronous(): Boolean {
-                return true
-            }
+        freeze(block)
 
-            override fun start() {
-                super.start()
-                initRuntimeIfNeeded()
-                block()
-            }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH.toLong(), 0), freeze {
+            runQueueTask(block)
         })
+    }
+
+    private fun runQueueTask(block: DispatchBlock) {
+        block()
+        count.decrement()
     }
 }
