@@ -40,23 +40,11 @@ kotlin {
             }
         }
 
-        commonMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
-            }
-        }
-
-        commonTest {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test-common'
-                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
-            }
-        }
+        commonMain {}
 
         jvmShared {
-            dependsOn(commonMain)
+            dependsOn commonMain
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
                 implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
             }
         }
@@ -69,37 +57,10 @@ kotlin {
             dependsOn jvmShared
         }
 
-        androidTest {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test'
-                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
-            }
-        }
-
-        jvmTest {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test'
-                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
-            }
-        }
-
-        jsMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
-            }
-        }
+        jsMain {}
 
         nativeMain {
             dependsOn commonMain
-        }
-
-        nativeTest {
-            dependsOn commonTest
-            iosX64Test.dependsOn(it)
-            iosArm64Test.dependsOn(it)
-            tvosArm64Test.dependsOn(it)
-            tvosX64Test.dependsOn(it)
-            iosArm32Test.dependsOn(it)
         }
 
         iosMain {
@@ -117,11 +78,39 @@ kotlin {
         iosArm32Main {
             dependsOn nativeMain
         }
+
+        commonTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-common'
+                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+            }
+        }
+
+        jvmTest {
+            dependsOn commonTest
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test'
+                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+            }
+        }
+
+        androidTest {
+            dependsOn jvmTest
+        }
+
+        nativeTest {
+            dependsOn commonTest
+            iosX64Test.dependsOn(it)
+            iosArm64Test.dependsOn(it)
+            tvosArm64Test.dependsOn(it)
+            tvosX64Test.dependsOn(it)
+            iosArm32Test.dependsOn(it)
+        }
     }
 }
 
 release {
-   checkTasks = ['check']
-   buildTasks = ['publish']
-   updateVersionPart = 2
+    checkTasks = ['check']
+    buildTasks = ['publish']
+    updateVersionPart = 2
 }
