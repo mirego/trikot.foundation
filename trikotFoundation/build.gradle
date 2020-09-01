@@ -111,18 +111,18 @@ kotlin {
         }
 
         nativeTest {
-            dependsOn commonTest
+            dependsOn(commonTest)
         }
 
         configure([iosX64Main, iosArm64Main, tvosArm64Main, tvosX64Main]) {
-            dependsOn nativeMain64
+            dependsOn(nativeMain64)
         }
 
         configure([iosX64Test, iosArm64Test, tvosArm64Test, tvosX64Test, iosArm32Test]) {
-            dependsOn nativeTest
+            dependsOn(nativeTest)
         }
 
-        iosArm32Main {
+        configure([iosArm32Main]) {
             dependsOn(nativeMain32)
         }
     }
@@ -131,5 +131,5 @@ kotlin {
 release {
    checkTasks = ['check']
    buildTasks = ['publish']
-   updateVersionPart = 1
+   updateVersionPart = 2
 }
