@@ -1,8 +1,8 @@
 package com.mirego.trikot.foundation.timers
 
-import kotlin.browser.window
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
+import kotlinx.browser.window
 
 @ExperimentalTime
 actual class PlatformTimer actual constructor(delay: Duration, private val repeat: Boolean, block: () -> Unit) :
