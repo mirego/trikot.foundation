@@ -26,21 +26,22 @@ repositories {
 
 group 'com.mirego.trikot'
 
-kotlin {
-    android {
-        publishAllLibraryVariants()
-    }
+project.ext.ideaActive = System.getProperty('idea.active') == 'true'
 
-    targets {
-        fromPreset(presets.jvm, 'jvm')
-        fromPreset(presets.android, 'android')
-        fromPreset(presets.js, 'js')
-        fromPreset(presets.iosArm32, 'iosArm32')
-        fromPreset(presets.iosArm64, 'iosArm64')
-        fromPreset(presets.iosX64, 'iosX64')
-        fromPreset(presets.tvosArm64, 'tvosArm64')
-        fromPreset(presets.tvosX64, 'tvosX64')
-    }
+kotlin {
+    android()
+    ios()
+    iosArm32('iosArm32')
+    tvos()
+    js()
+
+//    if (project.ext.ideaActive) {
+//        iosX64("ios")
+//    } else {
+//        ios()
+//        iosArm32("iosArm32")
+//        tvos()
+//    }
 
     sourceSets {
         all {
@@ -113,6 +114,28 @@ kotlin {
         nativeTest {
             dependsOn(commonTest)
         }
+
+//        nativeMain32 {
+//            dependsOn(nativeMain)
+//            iosArm32Main.dependsOn(it)
+//        }
+//
+//        nativeMain64 {
+//            dependsOn(nativeMain)
+//            iosX64Main.dependsOn(it)
+//            iosArm64Main.dependsOn(it)
+//            tvosArm64Main.dependsOn(it)
+//            tvosX64Main.dependsOn(it)
+//        }
+//
+//        nativeTest {
+//            dependsOn(commonTest)
+//            iosX64Test.dependsOn(it)
+//            iosArm64Test.dependsOn(it)
+//            tvosArm64Test.dependsOn(it)
+//            tvosX64Test.dependsOn(it)
+//            iosArm32Test.dependsOn(it)
+//        }
 
         configure([iosX64Main, iosArm64Main, tvosArm64Main, tvosX64Main]) {
             dependsOn(nativeMain64)
