@@ -1,9 +1,9 @@
 package com.mirego.trikot.foundation.concurrent.dispatchQueue
 
 import com.mirego.trikot.foundation.concurrent.freeze
+import platform.darwin.DISPATCH_QUEUE_PRIORITY_HIGH
 import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_global_queue
-import platform.darwin.DISPATCH_QUEUE_PRIORITY_HIGH
 
 open class iOSGlobalDispatchQueue : DispatchQueue {
     override fun isSerial() = false

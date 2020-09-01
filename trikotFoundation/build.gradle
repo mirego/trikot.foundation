@@ -26,22 +26,12 @@ repositories {
 
 group 'com.mirego.trikot'
 
-project.ext.ideaActive = System.getProperty('idea.active') == 'true'
-
 kotlin {
     android()
     ios()
     iosArm32('iosArm32')
     tvos()
     js()
-
-//    if (project.ext.ideaActive) {
-//        iosX64("ios")
-//    } else {
-//        ios()
-//        iosArm32("iosArm32")
-//        tvos()
-//    }
 
     sourceSets {
         all {
@@ -72,11 +62,11 @@ kotlin {
         }
 
         jvmMain {
-            dependsOn(jvmShared)
+            dependsOn jvmShared
         }
 
         androidMain {
-            dependsOn(jvmShared)
+            dependsOn jvmShared
         }
 
         androidTest {
@@ -100,53 +90,32 @@ kotlin {
         }
 
         nativeMain {
-            dependsOn(commonMain)
-        }
-
-        nativeMain32 {
-            dependsOn(nativeMain)
-        }
-
-        nativeMain64 {
-            dependsOn(nativeMain)
+            dependsOn commonMain
         }
 
         nativeTest {
-            dependsOn(commonTest)
+            dependsOn commonTest
+            iosX64Test.dependsOn(it)
+            iosArm64Test.dependsOn(it)
+            tvosArm64Test.dependsOn(it)
+            tvosX64Test.dependsOn(it)
+            iosArm32Test.dependsOn(it)
         }
 
-//        nativeMain32 {
-//            dependsOn(nativeMain)
-//            iosArm32Main.dependsOn(it)
-//        }
-//
-//        nativeMain64 {
-//            dependsOn(nativeMain)
-//            iosX64Main.dependsOn(it)
-//            iosArm64Main.dependsOn(it)
-//            tvosArm64Main.dependsOn(it)
-//            tvosX64Main.dependsOn(it)
-//        }
-//
-//        nativeTest {
-//            dependsOn(commonTest)
-//            iosX64Test.dependsOn(it)
-//            iosArm64Test.dependsOn(it)
-//            tvosArm64Test.dependsOn(it)
-//            tvosX64Test.dependsOn(it)
-//            iosArm32Test.dependsOn(it)
-//        }
-
-        configure([iosX64Main, iosArm64Main, tvosArm64Main, tvosX64Main]) {
-            dependsOn(nativeMain64)
+        iosMain {
+            dependsOn nativeMain
+            iosX64Main.dependsOn(it)
+            iosArm64Main.dependsOn(it)
         }
 
-        configure([iosX64Test, iosArm64Test, tvosArm64Test, tvosX64Test, iosArm32Test]) {
-            dependsOn(nativeTest)
+        tvosMain {
+            dependsOn nativeMain
+            tvosArm64Main.dependsOn(it)
+            tvosX64Main.dependsOn(it)
         }
 
-        configure([iosArm32Main]) {
-            dependsOn(nativeMain32)
+        iosArm32Main {
+            dependsOn nativeMain
         }
     }
 }

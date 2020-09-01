@@ -1,7 +1,7 @@
 package com.mirego.trikot.foundation.timers
 
-import kotlin.time.Duration
 import kotlin.browser.window
+import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
