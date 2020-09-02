@@ -6,16 +6,6 @@ plugins {
     id 'mirego.publish' version '1.0'
 }
 
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 29
-    }
-}
-
 repositories {
     google()
     jcenter()
@@ -25,6 +15,15 @@ repositories {
 }
 
 group 'com.mirego.trikot'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 29
+    }
+}
 
 kotlin {
     android() {
