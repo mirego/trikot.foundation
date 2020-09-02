@@ -5,8 +5,11 @@ import platform.darwin.dispatch_async
 import platform.darwin.dispatch_queue_create
 import platform.darwin.dispatch_queue_serial_t
 
-open class iOSSerialDispatchQueue(identifier: String) : DispatchQueue {
-    private val serialQueue = dispatch_queue_create("com.mirego.trikot.foundation.serial_dispatch_queue.$identifier", dispatch_queue_serial_t())
+open class IOSSerialDispatchQueue(identifier: String) : DispatchQueue {
+    private val serialQueue = dispatch_queue_create(
+        "com.mirego.trikot.foundation.serial_dispatch_queue.$identifier",
+        dispatch_queue_serial_t()
+    )
 
     override fun isSerial() = true
 

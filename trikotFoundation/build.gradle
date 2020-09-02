@@ -27,7 +27,10 @@ repositories {
 group 'com.mirego.trikot'
 
 kotlin {
-    android()
+    android() {
+        publishAllLibraryVariants()
+    }
+    jvm()
     ios()
     iosArm32('iosArm32')
     tvos()
