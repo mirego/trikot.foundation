@@ -26,14 +26,17 @@ android {
 }
 
 kotlin {
-    android() {
+    android {
         publishAllLibraryVariants()
     }
     jvm()
     ios()
     iosArm32('iosArm32')
     tvos()
-    js()
+    js {
+        browser()
+        nodejs()
+    }
 
     sourceSets {
         all {
@@ -93,6 +96,13 @@ kotlin {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test'
                 implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+            }
+        }
+
+        jsTest {
+            dependsOn commonTest
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-js'
             }
         }
 
