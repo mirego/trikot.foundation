@@ -47,6 +47,13 @@ kotlin {
 
         commonMain {}
 
+        commonTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-common'
+                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+            }
+        }
+
         jvmShared {
             dependsOn commonMain
             dependencies {
@@ -58,14 +65,44 @@ kotlin {
             dependsOn jvmShared
         }
 
+        jvmTest {
+            dependsOn commonTest
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test'
+                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+            }
+        }
+
         androidMain {
             dependsOn jvmShared
         }
 
-        jsMain {}
+        androidTest {
+            dependsOn jvmTest
+        }
+
+        jsMain {
+            dependsOn(commonMain)
+        }
+
+        jsTest {
+            dependsOn commonTest
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-js'
+            }
+        }
 
         nativeMain {
             dependsOn commonMain
+        }
+
+        nativeTest {
+            dependsOn commonTest
+            iosX64Test.dependsOn(it)
+            iosArm64Test.dependsOn(it)
+            tvosArm64Test.dependsOn(it)
+            tvosX64Test.dependsOn(it)
+            iosArm32Test.dependsOn(it)
         }
 
         iosMain {
@@ -82,41 +119,6 @@ kotlin {
 
         iosArm32Main {
             dependsOn nativeMain
-        }
-
-        commonTest {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test-common'
-                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
-            }
-        }
-
-        jvmTest {
-            dependsOn commonTest
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test'
-                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
-            }
-        }
-
-        jsTest {
-            dependsOn commonTest
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-test-js'
-            }
-        }
-
-        androidTest {
-            dependsOn jvmTest
-        }
-
-        nativeTest {
-            dependsOn commonTest
-            iosX64Test.dependsOn(it)
-            iosArm64Test.dependsOn(it)
-            tvosArm64Test.dependsOn(it)
-            tvosX64Test.dependsOn(it)
-            iosArm32Test.dependsOn(it)
         }
     }
 }
