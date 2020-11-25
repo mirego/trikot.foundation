@@ -7,7 +7,7 @@ class NativeStringExtensionsTest {
     @Test
     fun testNormalize() {
         val cue = "\u00C7\u00FA\u00EA"
-        assertEquals("Cue", cue.normalize(), "Failed to strip accents from $cue")
+        assertEquals("Cue", cue.normalize(), "Failed to strip diacritics from $cue")
 
         val lots = "\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5\u00C7\u00C8\u00C9" +
                 "\u00CA\u00CB\u00CC\u00CD\u00CE\u00CF\u00D1\u00D2\u00D3" +
@@ -15,7 +15,7 @@ class NativeStringExtensionsTest {
         assertEquals(
             "AAAAAACEEEEIIIINOOOOOUUUUY",
             lots.normalize(),
-            "Failed to strip accents from $lots"
+            "Failed to strip diacritics from $lots"
         )
         assertEquals("", "".normalize(), "Failed empty String")
         assertEquals("control", "control".normalize(), "Failed to handle non-accented text")
