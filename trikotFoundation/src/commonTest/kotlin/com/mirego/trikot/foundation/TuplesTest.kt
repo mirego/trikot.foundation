@@ -15,7 +15,9 @@ class TuplesTest {
             assertEquals(4, d)
         }
 
-        assertEquals("(1, 2, 3, 4)", quadruple.toString())
+        val (a, b, c, d) = quadruple
+
+        assertEquals("($a, $b, $c, $d)", quadruple.toString())
     }
 
     @Test
@@ -30,7 +32,9 @@ class TuplesTest {
             assertEquals(5, e)
         }
 
-        assertEquals("(1, 2, 3, 4, 5)", quintuple.toString())
+        val (a, b, c, d, e) = quintuple
+
+        assertEquals("($a, $b, $c, $d, $e)", quintuple.toString())
     }
 
     @Test
@@ -46,7 +50,9 @@ class TuplesTest {
             assertEquals(6, f)
         }
 
-        assertEquals("(1, 2, 3, 4, 5, 6)", sextuple.toString())
+        val (a, b, c, d, e, f) = sextuple
+
+        assertEquals("($a, $b, $c, $d, $e, $f)", sextuple.toString())
     }
 
     @Test
@@ -63,6 +69,8 @@ class TuplesTest {
             assertEquals(7, g)
         }
 
-        assertEquals("(1, 2, 3, 4, 5, 6, 7)", septuple.toString())
+        val (a, b, c, d, e, f, g) = septuple
+
+        assertEquals("($a, $b, $c, $d, $e, $f, $g)", septuple.toString())
     }
 }
