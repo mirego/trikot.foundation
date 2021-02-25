@@ -6,8 +6,8 @@ pluginManagement {
             maven("https://s3.amazonaws.com/mirego-maven/public")
             maven("https://jitpack.io")
         }
-        eachPlugin {
 
+        eachPlugin {
             val kotlinPluginNames = listOf("kotlin-multiplatform", "kotlin-platform-native")
             if (kotlinPluginNames.contains(requested.id.id)) {
                 useModule("org.jetbrains.kotlin:${requested.id.id}:${requested.version}")
