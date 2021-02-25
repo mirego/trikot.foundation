@@ -11,9 +11,12 @@ open class IOSGlobalDispatchQueue : TrikotDispatchQueue {
     override fun dispatch(block: DispatchBlock) {
         freeze(block)
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), freeze {
-            runQueueTask(block)
-        })
+        dispatch_async(
+            dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+            freeze {
+                runQueueTask(block)
+            }
+        )
     }
 
     private fun runQueueTask(block: DispatchBlock) {

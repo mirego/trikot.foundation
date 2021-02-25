@@ -15,7 +15,8 @@ open class IOSGlobalDispatchQueue : TrikotDispatchQueue {
             dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH.toLong(), 0UL),
             freeze {
                 runQueueTask(block)
-            })
+            }
+        )
     }
 
     private fun runQueueTask(block: DispatchBlock) {

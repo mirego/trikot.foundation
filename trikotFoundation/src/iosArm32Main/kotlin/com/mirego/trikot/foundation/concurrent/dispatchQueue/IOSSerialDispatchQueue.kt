@@ -17,9 +17,12 @@ open class IOSSerialDispatchQueue(identifier: String) : TrikotDispatchQueue {
     override fun dispatch(block: DispatchBlock) {
         freeze(block)
 
-        dispatch_async(serialQueue, freeze {
-            runQueueTask(block)
-        })
+        dispatch_async(
+            serialQueue,
+            freeze {
+                runQueueTask(block)
+            }
+        )
     }
 
     private fun runQueueTask(block: DispatchBlock) {
