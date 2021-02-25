@@ -6,7 +6,7 @@ import platform.Foundation.NSThread
 import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_main_queue
 
-actual class UIThreadDispatchQueue actual constructor() : DispatchQueue {
+actual class UIThreadDispatchQueue actual constructor() : TrikotDispatchQueue {
     private val count = AtomicInt(0)
 
     override fun isSerial() = true
