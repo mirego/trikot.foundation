@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         google()
-        jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
@@ -14,13 +13,11 @@ buildscript {
 
 repositories {
     google()
-    jcenter()
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
         maven { url "https://kotlin.bintray.com/kotlinx" }
     }
 }
