@@ -12,8 +12,10 @@ import platform.Foundation.create
 object ByteArrayNativeUtils {
     @ExperimentalUnsignedTypes
     fun convert(data: NSData): ByteArray {
-        val dataPointer: CPointer<ByteVar> = data.bytes!!.reinterpret()
-        return ByteArray(data.length.toInt()) { index -> dataPointer[index] }
+        return data.bytes?.let {
+            val dataPointer: CPointer<ByteVar> = it.reinterpret()
+            ByteArray(data.length.toInt()) { index -> dataPointer[index] }
+        } ?: ByteArray(0)
     }
     @ExperimentalUnsignedTypes
     fun convert(byteArray: ByteArray): NSData {
