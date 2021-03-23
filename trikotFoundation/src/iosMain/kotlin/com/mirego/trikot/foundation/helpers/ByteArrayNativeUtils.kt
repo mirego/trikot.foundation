@@ -9,13 +9,15 @@ import platform.posix.memcpy
 object ByteArrayNativeUtils {
     @ExperimentalUnsignedTypes
     fun convert(data: NSData): ByteArray {
-        val byteArray = ByteArray(data.length.toInt()).apply {
-            usePinned {
-                memcpy(it.addressOf(0), data.bytes, data.length)
+        return data.bytes?.let { bytes ->
+            ByteArray(data.length.toInt()).apply {
+                usePinned { pinned ->
+                    memcpy(pinned.addressOf(0), bytes, data.length)
+                }
             }
-        }
-        return byteArray
+        } ?: ByteArray(0)
     }
+
     @ExperimentalUnsignedTypes
     fun convert(byteArray: ByteArray): NSData {
         return byteArray.usePinned {
