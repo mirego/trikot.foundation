@@ -25,6 +25,7 @@ kotlin {
     ios()
     iosArm32("iosArm32")
     tvos()
+    macosX64()
     js(BOTH) {
         browser()
     }
@@ -114,6 +115,10 @@ kotlin {
         }
 
         val iosX64Main by getting {
+            dependsOn(nativeMain)
+        }
+
+        val macosX64Main by getting {
             dependsOn(nativeMain)
         }
     }
