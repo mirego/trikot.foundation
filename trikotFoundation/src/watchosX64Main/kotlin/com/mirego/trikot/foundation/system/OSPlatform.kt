@@ -1,3 +1,5 @@
 package com.mirego.trikot.foundation.system
 
-actual var currentPlatform = OSPlatform.watchOS
+actual object CurrentPlatform {
+    actual val current = OSPlatform.watchOS
+}

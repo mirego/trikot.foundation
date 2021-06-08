@@ -7,4 +7,6 @@ enum class OSPlatform {
     macOS
 }
 
-expect var currentPlatform: OSPlatform
+expect object CurrentPlatform {
+    val current: OSPlatform
+}
