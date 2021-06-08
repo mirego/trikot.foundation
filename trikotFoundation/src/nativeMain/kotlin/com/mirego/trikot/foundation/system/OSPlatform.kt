@@ -6,7 +6,3 @@ enum class OSPlatform {
     watchOS,
     macOS
 }
-
-expect object CurrentPlatform {
-    val current: OSPlatform
-}
