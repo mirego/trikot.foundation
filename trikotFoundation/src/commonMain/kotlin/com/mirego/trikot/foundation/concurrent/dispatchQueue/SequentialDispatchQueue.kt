@@ -10,33 +10,24 @@ import com.mirego.trikot.foundation.concurrent.freeze
 open class SequentialDispatchQueue(override val dispatchQueue: TrikotDispatchQueue) :
     TrikotQueueDispatcher,
     TrikotDispatchQueue {
-    protected open val isSynchronous = false
     private val dispatchBlockQueue = AtomicListReference<DispatchBlock>()
     private val currentDispatch = AtomicReference(NoDispatchBlock)
 
     override fun isSerial() = true
 
     override fun dispatch(block: DispatchBlock) {
-        if (isSynchronous && currentDispatch.compareAndSet(NoDispatchBlock, SyncDispatchBlock)) {
-            dispatchQueue.dispatch(block)
-            currentDispatch.setOrThrow(SyncDispatchBlock, NoDispatchBlock)
-            startNextIfNeeded()
-        } else {
-            dispatchBlockQueue.add(block)
-            startNextIfNeeded()
-        }
+        dispatchBlockQueue.add(block)
+        startNextIfNeeded()
     }
 
     private fun startNextIfNeeded() {
-        if (currentDispatch.value == NoDispatchBlock) {
-            dispatchBlockQueue.value.firstOrNull()?.let { nextDispatchBlock ->
-                if (currentDispatch.compareAndSet(NoDispatchBlock, nextDispatchBlock)) {
-                    dispatchBlockQueue.remove(nextDispatchBlock)
-                    (this as TrikotQueueDispatcher).dispatch {
-                        nextDispatchBlock()
-                        markDispatchBlockCompleted(nextDispatchBlock)
-                        startNextIfNeeded()
-                    }
+        dispatchBlockQueue.value.firstOrNull()?.let { nextDispatchBlock ->
+            if (currentDispatch.compareAndSet(NoDispatchBlock, nextDispatchBlock)) {
+                dispatchBlockQueue.remove(nextDispatchBlock)
+                (this as TrikotQueueDispatcher).dispatch {
+                    nextDispatchBlock()
+                    markDispatchBlockCompleted(nextDispatchBlock)
+                    startNextIfNeeded()
                 }
             }
         }
@@ -48,6 +39,5 @@ open class SequentialDispatchQueue(override val dispatchQueue: TrikotDispatchQue
 
     companion object {
         private val NoDispatchBlock = freeze {}
-        private val SyncDispatchBlock = freeze {}
     }
 }
