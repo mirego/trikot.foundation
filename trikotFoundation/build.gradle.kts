@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
+    id("org.jetbrains.kotlin.multiplatform").version("1.6.0-M1-139")
     id("com.android.library")
-    id("org.jlleitschuh.gradle.ktlint")
+    id("org.jlleitschuh.gradle.ktlint").version("10.1.0")
     id("mirego.release").version("2.0")
     id("mirego.publish").version("1.0")
 }
