@@ -1,6 +1,7 @@
 package com.mirego.trikot.foundation
 
 import com.mirego.trikot.foundation.concurrent.AtomicReference
+import com.mirego.trikot.foundation.concurrent.atomic
 import com.mirego.trikot.foundation.timers.DefaultTimerFactory
 import com.mirego.trikot.foundation.timers.TimerFactory
 import kotlin.time.ExperimentalTime
@@ -12,4 +13,6 @@ object FoundationConfiguration {
     var timerFactory: TimerFactory
         get() = internalTimerFactoryRef.value
         set(value) = internalTimerFactoryRef.setOrThrow(internalTimerFactoryRef.value, value)
+
+    var forwardsExceptionsOnMainThread: Boolean by atomic(true)
 }
