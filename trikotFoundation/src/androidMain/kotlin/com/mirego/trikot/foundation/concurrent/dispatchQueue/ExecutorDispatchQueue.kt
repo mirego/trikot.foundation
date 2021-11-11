@@ -15,6 +15,10 @@ open class ExecutorDispatchQueue(private val maxConcurrentOperation: Int = 4) :
     override fun isSerial() = maxConcurrentOperation == 1
 
     override fun dispatch(block: DispatchBlock) = pool.execute {
+        runQueueTask(block)
+    }
+
+    private fun runQueueTask(block: DispatchBlock) {
         try {
             block()
         } catch (e: Throwable) {

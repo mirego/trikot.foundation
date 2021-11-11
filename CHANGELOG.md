@@ -4,6 +4,11 @@ All notable changes to the library will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## 2.3.0
+> 2021-11-11
+
+- Added exceptions forwarding on the main queue for iOS and Android
+
 ## 2.2.1
 > 2021-10-15
 
