@@ -1,5 +1,6 @@
 package com.mirego.trikot.foundation.concurrent.dispatchQueue
 
+import com.mirego.trikot.foundation.FoundationConfiguration
 import com.mirego.trikot.foundation.concurrent.freeze
 import platform.darwin.DISPATCH_QUEUE_PRIORITY_HIGH
 import platform.darwin.dispatch_async
@@ -25,7 +26,7 @@ open class IOSGlobalDispatchQueue : TrikotDispatchQueue {
         try {
             block()
         } catch (e: Throwable) {
-            forwardExceptionOnMainThread(e)
+            FoundationConfiguration.backgroundQueueExceptionHandler.handle(e)
         }
     }
 }

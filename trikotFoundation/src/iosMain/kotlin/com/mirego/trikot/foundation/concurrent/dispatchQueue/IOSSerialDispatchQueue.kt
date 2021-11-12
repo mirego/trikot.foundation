@@ -1,5 +1,6 @@
 package com.mirego.trikot.foundation.concurrent.dispatchQueue
 
+import com.mirego.trikot.foundation.FoundationConfiguration
 import com.mirego.trikot.foundation.concurrent.freeze
 import platform.darwin.DISPATCH_QUEUE_SERIAL
 import platform.darwin.dispatch_async
@@ -29,7 +30,7 @@ open class IOSSerialDispatchQueue(identifier: String) : TrikotDispatchQueue {
         try {
             block()
         } catch (e: Throwable) {
-            forwardExceptionOnMainThread(e)
+            FoundationConfiguration.backgroundQueueExceptionHandler.handle(e)
         }
     }
 }

@@ -29,7 +29,8 @@ By default, trikot provide those dispatch queues available trough the Configurat
 
 ### Exception handling
 Starting from version [2.3.0](https://github.com/mirego/trikot.foundation/releases/tag/2.3.0), trikot forwards all exceptions on the main thread (iOS & Android) so that crashes do not go silent on background queues.
-This default behaviour can be disabled by setting `FoundationConfiguration.forwardsExceptionsOnMainThread = false`.
+This default behaviour can be disabled by setting `FoundationConfiguration.backgroundQueueExceptionHandler = NoBackgroundQueueExceptionHandler()`.
+You can also provide your own BackgroundQueueExceptionHandler implementation to customize the default behaviour to your preference.
 
 ### QueueDispatcher
 Like Coroutines, one class can implement `QueueDispatcher` and dispatch event using
