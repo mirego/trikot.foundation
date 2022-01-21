@@ -1,3 +1,6 @@
+# :warning: Warning: this project as been moved
+See [the new trikot repository](https://github.com/mirego/trikot) for releases starting from 3.0.0.
+
 # Trikot.foundation
 Kotlin Multiplatform implementation of threads, timers, atomic references, string utilities and iso8601 dates.
 
